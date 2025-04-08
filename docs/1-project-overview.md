@@ -8,9 +8,8 @@ The project is organized as a monorepo with the following structure:
 
 ```
 mindkeep/
-├── apps/                    # Applications
-│   ├── server/             # Go/Gin backend
-│   └── frontend/           # Angular frontend
+├── server/                  # Go/Gin backend
+├── client/                  # Typescript/Angular frontent
 ├── docs/                    # Project documentation
 └── tools/                   # Build tools and scripts
 ```
