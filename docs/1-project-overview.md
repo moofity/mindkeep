@@ -1,4 +1,4 @@
-# MindKeep - Project Overview
+# Project Overview
 
 ## Purpose
 MindKeep is a modern web application designed to help users organize and manage their thoughts, ideas, and knowledge. The project follows a monorepo architecture using pnpm and Nx for efficient development and maintenance.
@@ -21,12 +21,20 @@ mindkeep/
 - **Framework**: Gin
 - **Package Manager**: Go Modules
 - **Runtime**: Go 1.21+
+- **Architecture**: Monolithic application with modular design
+- **Modules**: The backend is organized into modules, each responsible for a specific domain of functionality and its associated business logic:
+  - **social-graph**: Core module for managing relationships and connections (described in detail in the [Social graph module documentation](2-social-graph-module.md))
+  - *Additional modules will be added as the project evolves*
 
 ### Frontend (Client)
+- **Language**: TypeScript
 - **Framework**: Angular
 - **Package Manager**: pnpm
 - **Build Tool**: Nx
-- **Language**: TypeScript
+
+## Infrastructure
+- **Graph Database**: Neo4j for storing and managing relationship data
+- *Additional infrastructure components will be added as the project evolves*
 
 ## Development Setup
 The project uses:
@@ -40,9 +48,3 @@ The project uses:
 This documentation is organized in multiple markdown files:
 - `1-project-overview.md` (this file): General project structure and purpose
 - Additional documentation files will be added with numeric prefixes for logical ordering
-
-## Next Steps
-- Implement the frontend application
-- Set up shared libraries
-- Add authentication and authorization
-- Implement core features
