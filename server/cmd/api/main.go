@@ -2,20 +2,19 @@ package main
 
 import (
 	"fmt"
-	"time"
+	provider "server/pkg/social-graph"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	go printHello()
+	r := gin.Default()
 
-	ticker := time.NewTicker(5 * time.Second)
-	defer ticker.Stop()
+	gin.SetMode(gin.DebugMode)
 
-	for range ticker.C {
-		printHello()
+	provider.NewRoutesProvider().Provide(r)
+
+	if err := r.Run(":8001"); err != nil {
+		fmt.Println(err)
 	}
-}
-
-func printHello() {
-	fmt.Println("Hello, World!")
 }
