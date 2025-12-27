@@ -1,49 +1,44 @@
 # MindKeep - Project Overview
 
 ## Purpose
-MindKeep is a modern web application designed to help users organize and manage their thoughts, ideas, and knowledge. The project follows a monorepo architecture using pnpm and Nx for efficient development and maintenance.
+MindKeep is a modern web application designed to help users organize and manage their thoughts, ideas, and knowledge.
 
 ## Project Structure
-The project is organized as a monorepo with the following structure:
+The project is organized with the following structure:
 
 ```
 mindkeep/
-├── apps/                    # Applications
-│   ├── server/             # Go/Gin backend
-│   └── frontend/           # Angular frontend
-├── docs/                    # Project documentation
-└── tools/                   # Build tools and scripts
+├── backend/                  # Go backend server
+├── cli/                      # Go command-line interface tools
+└── docs/                     # Project documentation
 ```
 
 ## Technology Stack
 
-### Backend (Server)
+### Backend
 - **Language**: Go
 - **Framework**: Gin
-- **Package Manager**: Go Modules
-- **Runtime**: Go 1.21+
 
-### Frontend (Client)
-- **Framework**: Angular
-- **Package Manager**: pnpm
-- **Build Tool**: Nx
-- **Language**: TypeScript
+### CLI
+- **Language**: Go
 
 ## Development Setup
 The project uses:
-- pnpm for frontend package management
-- Go Modules for backend dependency management
-- Nx for frontend build automation
-- TypeScript for frontend type safety
-- EditorConfig for consistent code formatting
+- **Go modules** for dependency management
+- **gofmt** for code formatting
+- **golangci-lint** for code linting
 
 ## Documentation Structure
 This documentation is organized in multiple markdown files:
 - `1-project-overview.md` (this file): General project structure and purpose
 - Additional documentation files will be added with numeric prefixes for logical ordering
 
+## Current Status
+- ⏳ Backend implementation (to be implemented)
+    - ⏳ Gin framework setup (to be implemented)
+- ⏳ CLI implementation (to be implemented)
+
 ## Next Steps
-- Implement the frontend application
-- Set up shared libraries
-- Add authentication and authorization
-- Implement core features
+- Set up Gin framework in backend
+- Implement backend API structure
+
