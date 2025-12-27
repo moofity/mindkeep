@@ -1,0 +1,99 @@
+---
+alwaysApply: true
+---
+
+# Documentation Rules
+
+## Documentation Maintenance
+
+### Updating Documentation List
+
+**CRITICAL**: Whenever a new documentation file is added to the `docs/` folder, you MUST update the "Documentation Structure" section in `docs/1-project-overview.md` to include the new file.
+
+The documentation list should:
+
+- Include all files in the `docs/` folder
+- Use numeric prefixes for logical ordering (e.g., `1-project-overview.md`, `2-setup-guide.md`)
+- Provide a brief description of each file's purpose
+- Be kept in sync with actual files in the directory
+
+Example format:
+
+```markdown
+## Documentation Structure
+
+This documentation is organized in multiple markdown files:
+
+- `1-project-overview.md`: General project structure and purpose
+- `2-setup-guide.md`: Development environment setup instructions
+- `3-api-documentation.md`: API endpoints and usage
+```
+
+## File Naming Conventions
+
+- Use numeric prefixes for ordering: `1-`, `2-`, `3-`, etc.
+- Use kebab-case for file names: `setup-guide.md`, `api-documentation.md`
+- Be descriptive but concise
+- Match the file name to the main topic
+
+## Content Guidelines
+
+### Structure
+
+- Start with a clear title (H1)
+- Use descriptive section headers (H2, H3)
+- Organize content logically with clear hierarchy
+- Include a brief introduction/overview at the start
+
+### Formatting
+
+- Use proper markdown syntax
+- Use code blocks with language tags for code examples
+- Use lists for multiple items
+- Use tables for structured data
+- Keep line length reasonable (wrap at ~100 characters for readability)
+
+### Code Examples
+
+- Include language tags in code blocks: ` ```typescript`, ` ```bash`, etc.
+- Provide context for code examples
+- Show both examples and counter-examples when relevant
+- Keep examples focused and relevant
+
+### Links and References
+
+- Use relative paths for internal documentation links
+- Reference specific sections when linking: `[Setup Guide](./2-setup-guide.md#installation)`
+- Keep external links to a minimum and make them clear
+
+### Status Indicators
+
+- Use checkmarks (✅) for completed items
+- Use pending indicators (⏳) for planned/in-progress items
+- Keep status sections up to date
+
+## Writing Style
+
+- Be clear and concise
+- Use active voice when possible
+- Write for developers who may be new to the project
+- Include context and rationale, not just instructions
+- Keep documentation current with code changes
+
+## Markdown Best Practices
+
+- Use `**bold**` for emphasis on important terms
+- Use `*italic*` for subtle emphasis
+- Use backticks for code, file names, and technical terms: `` `package.json` ``
+- Use proper heading hierarchy (don't skip levels)
+- Use horizontal rules (`---`) sparingly, for major section breaks
+
+## Documentation Updates
+
+When updating documentation:
+
+1. Check if the change affects other documentation files
+2. Update cross-references if file names or sections change
+3. Verify all code examples still work
+4. Update the documentation list in `1-project-overview.md` if adding new files
+5. Keep version numbers and dependency versions accurate
