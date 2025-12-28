@@ -3,12 +3,11 @@ package server
 import (
 	"fmt"
 	"net/http"
-	"os"
-	"strconv"
 	"time"
 
-	_ "github.com/joho/godotenv/autoload"
+	"github.com/gin-gonic/gin"
 
+	"backend/internal/config"
 	"backend/internal/database"
 )
 
@@ -18,21 +17,23 @@ type Server struct {
 	db database.Service
 }
 
-func NewServer() *http.Server {
-	port, _ := strconv.Atoi(os.Getenv("PORT"))
-	NewServer := &Server{
-		port: port,
+func NewServer(cfg *config.Config) *http.Server {
+	if cfg.IsProduction() {
+		gin.SetMode(gin.ReleaseMode)
+	}
 
-		db: database.New(),
+	NewServer := &Server{
+		port: cfg.Server.Port,
+		db:   database.New(cfg),
 	}
 
 	// Declare Server config
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", NewServer.port),
 		Handler:      NewServer.RegisterRoutes(),
-		IdleTimeout:  time.Minute,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 30 * time.Second,
+		IdleTimeout:  time.Duration(cfg.Server.IdleTimeout) * time.Second,
+		ReadTimeout:  time.Duration(cfg.Server.ReadTimeout) * time.Second,
+		WriteTimeout: time.Duration(cfg.Server.WriteTimeout) * time.Second,
 	}
 
 	return server

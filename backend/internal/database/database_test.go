@@ -3,13 +3,18 @@ package database
 import (
 	"context"
 	"log"
+	"os"
 	"testing"
 	"time"
 
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/modules/postgres"
 	"github.com/testcontainers/testcontainers-go/wait"
+
+	"backend/internal/config"
 )
+
+var testConfig *config.Config
 
 func mustStartPostgresContainer() (func(context.Context, ...testcontainers.TerminateOption) error, error) {
 	var (
@@ -36,10 +41,6 @@ func mustStartPostgresContainer() (func(context.Context, ...testcontainers.Termi
 		return nil, err
 	}
 
-	database = dbName
-	password = dbPwd
-	username = dbUser
-
 	dbHost, err := dbContainer.Host(context.Background())
 	if err != nil {
 		return dbContainer.Terminate, err
@@ -50,8 +51,19 @@ func mustStartPostgresContainer() (func(context.Context, ...testcontainers.Termi
 		return dbContainer.Terminate, err
 	}
 
-	host = dbHost
-	port = dbPort.Port()
+	// Set environment variables for config
+	os.Setenv("BLUEPRINT_DB_HOST", dbHost)
+	os.Setenv("BLUEPRINT_DB_PORT", dbPort.Port())
+	os.Setenv("BLUEPRINT_DB_USERNAME", dbUser)
+	os.Setenv("BLUEPRINT_DB_PASSWORD", dbPwd)
+	os.Setenv("BLUEPRINT_DB_DATABASE", dbName)
+	os.Setenv("BLUEPRINT_DB_SCHEMA", "public")
+
+	// Load config with test database settings
+	testConfig, err = config.Load()
+	if err != nil {
+		return dbContainer.Terminate, err
+	}
 
 	return dbContainer.Terminate, err
 }
@@ -70,14 +82,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestNew(t *testing.T) {
-	srv := New()
+	srv := New(testConfig)
 	if srv == nil {
 		t.Fatal("New() returned nil")
 	}
 }
 
 func TestHealth(t *testing.T) {
-	srv := New()
+	srv := New(testConfig)
 
 	stats := srv.Health()
 
@@ -95,7 +107,7 @@ func TestHealth(t *testing.T) {
 }
 
 func TestClose(t *testing.T) {
-	srv := New()
+	srv := New(testConfig)
 
 	if srv.Close() != nil {
 		t.Fatalf("expected Close() to return nil")
